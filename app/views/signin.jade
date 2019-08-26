@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        link(rel="stylesheet", href="/css/main.css")
+        link(href="/icon/css/all.css" rel="stylesheet")
+        script(src="/js/plugin/jquery-3.4.1.min.js")
+        script.
+            $(()=>{
+
+                //set การเปิดปิดให้เห็น password
+                var bool = true;
+                $('i').click((e)=>{
+                    if(bool){
+                        $('#password').attr('type', 'text');
+
+                        $('i').addClass('fa-eye');
+                        $('i').removeClass('fa-eye-slash');
+
+                        bool = false;
+                    }else{
+                        $('#password').attr('type', 'password');
+
+                        $('i').removeClass('fa-eye');
+                        $('i').addClass('fa-eye-slash');
+
+                        bool = true;
+                    }
+                });
+            });
+        title= title
+        
+    body
+        .wrapper
+            //- loop ถ้ามีข้อความ error จะแสดงส่วนนี่
+            each err in messageError
+                div.flash
+                    = err
+
+            //- form login
+            form(action="/signin", method="post")
+                .login-items
+                    h1 เข้าสู่ระบบ
+                .login-items.icon-username
+                    input#username(type="text", name="username", required, placeholder="Username")
+                .login-items.icon-password
+                    input#password(type="password", name="password", required, placeholder="Password")
+                    i.far.fa-eye-slash
+                dv.login-items
+                    button.btn-submit(type="submit")
+                        i.fas.fa-sign-in-alt(style="margin-right:5px")
+                        |Login
+                .login-items
+                    a.sign-up(href="/signup")
+                        i.fas.fa-user-plus(style="margin-right:5px")
+                        |Sign Up
+                        
+                hr
+                .oauth
+                    a.login-facebook(href="/oauth/facebook")
+                        img(src="/img/system/facebook.png")
+                        p เข้าสู่ระบบด้วย facebook
+                .oauth
+                    a.login-google(href="/oauth/google")
+                        img(src="/img/system/google.png")
+                        p เข้าสู่ระบบด้วย google
+                

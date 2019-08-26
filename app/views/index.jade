@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        link(rel="stylesheet", href="/css/main.css")
+        title= title
+        link(href="/icon/css/all.css" rel="stylesheet")
+        script(src="/socket.io/socket.io.js")
+        script(src="/js/plugin/jquery-3.4.1.min.js")
+        script(src="/js/index.js")
+    body
+        .wrapper
+            //- loop ถ้ามีข้อความ error จะแสดงส่วนนี่
+            each err in messageError
+                div.flash
+                    = err
+            
+            //- ส่วนของการลบห้องแชท ถ้ามีการคลิกปุ่ม `ลบ` จะแสดงส่วนนี่
+            .delete-room
+                .form-delete-room 
+                    .delete-items
+                        h2.del-txt
+                    .delete-items
+                        button#del ลบ
+                        button#close ยกเลิก
+
+            //- ส่วนของการสร้างห้องที่จะแชท ถ้ามีการคลิกปุ่ม `สร้างห้องแชท` จะแสดงส่วนนี่
+            .create-room
+                .form-create-room
+                    button.close X
+                    .create-items
+                        h1 Create Room  
+                    .create-items
+                        input#name_room(type="text", placeholder="Enter Name")
+                    .create-items
+                        button#btn_create(type="submit") สร้างห้อง
+            
+            //- ส่วนหลักของเว็บ เป็นส่วนที่เราต้องการจะเลือกห้องแชท
+            .room
+
+                //- ส่วน header
+                header.title-room
+                    h1.txt-title-room Room Chat
+                    a.btn-create-room 
+                        i.fas.fa-home(style="margin-right:5px")
+                        |สร้างห้อง
+                
+                //- ส่วน body
+                section
+                    ul.list-room
+                        each name in roomName
+                            li
+                                div.room-items
+                                    h2= name.roomName
+                                    div.btn-room
+                                        a.btn-join-room(href="/room/#{name._id}")
+                                            i.far.fa-comments(style="margin-right:5px") 
+                                            |แชท
+                                        a.btn-del-room(data-id="#{name._id}", data-name="#{name.roomName}")
+                                            i.far.fa-trash-alt(style="margin-right:5px") 
+                                            |ลบ
+                
+                //- ส่วน footer
+                footer.foo-room
+                    a.btn-room-logout(href="/logout") 
+                        i.fas.fa-sign-out-alt(style="margin-right:5px")
+                        |ออกจากระบบ
+

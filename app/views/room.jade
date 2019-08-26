@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title= title
+        link(rel="stylesheet", href="/css/main.css")
+        link(href="/icon/css/all.css" rel="stylesheet")
+        script(src="/socket.io/socket.io.js")
+        script(src="/js/plugin/jquery-3.4.1.min.js")
+        script(src="/js/plugin/jquery.timeago.js")
+        script(src="/js/room.js")
+    body
+        .wrapper
+            //- loop ถ้ามีข้อความ error จะแสดงส่วนนี่
+            each err in messageError
+                div.flash
+                    = err
+
+            //- ส่วนห้องแชท
+            .room
+                //- ส่วน header
+                header.header-chat
+                    .header-title
+                        a(href="/") 
+                            i.fas.fa-sign-out-alt(style="margin-right:5px")
+                            |ออกจากห้อง
+                        h1= roomName
+
+                    .header-contron
+                        input#auto-scrol(type="checkbox", checked)
+                        label(for="auto-scrol") auto scrollbar
+
+                //- ส่วน body
+                section.body-chat
+                    ul.list-message
+                        each msg in message
+                            li            
+                                div(class="#{user.toString() === msg.user._id.toString()? 'me-message' : 'message-items'}")
+                                    .image-user
+                                        img(src="#{msg.user.profileImg}", alt="#{msg.user.username}")
+                                        h4= msg.user.username
+                                    .descript-message
+                                        .message
+                                            p= msg.message
+                                        //- p.time= jQuery.timeago(msg.dateTime)
+                                        p.time(data-time="#{msg.dateTime}")
+                
+                //- ส่วน footer
+                footer.foo-room
+                    input#msg.txt-Message(type="text", name="message", data-room="#{roomId}", data-user="#{user}", placeholder="Message")
+                    button#btn-send
+                        i.far.fa-paper-plane
+            

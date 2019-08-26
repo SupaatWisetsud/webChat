@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title= title
+        link(rel="stylesheet", href="/css/main.css")
+    body
+        
+        .wrapper
+            //- loop ถ้ามีข้อความ error จะแสดงส่วนนี่
+            each err in messageError
+                div.flash
+                    = err
+            
+            //- form ส่วน sign up
+            form.form-register(action="/signup", method="post", enctype="multipart/form-data")
+                .register-items
+                    h1 สมัครสมาชิก
+                .register-items
+                    input.register-username(type="text", name="username", id="username", required, placeholder="Username")
+
+                .register-items
+                    input.register-password(type="password", name="password", id="password", required, placeholder="Password")
+
+                .register-items
+                    input.register-email(type="email", name="email", id="email", required, placeholder="Email")
+
+                .register-sub-items
+                    .register-items
+                        input(type="text", name="firstName", required, placeholder="first Name")
+                    .register-items
+                        input(type="text", name="lastName", required, placeholder="last Name")
+                .register-image
+                    label(for="profileImg") Profile Image
+                    input#profile(type="file", name="profileImg")
+
+                .register-items
+                    input#tel(type="text", name="phoneNumber", placeholder="Phone Number", required, maxlength="10")
+
+                .register-items
+                    button.btn-submit(type="submit") Confirm
+                    a(href="/") Canceled
