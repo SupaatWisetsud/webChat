@@ -45,8 +45,9 @@ module.exports = function(){
     app.use(session({
         name : 'sid',
         secret : config.sessionSecret,
-        resave : true,
-        saveUninitialized : true
+        resave : false,
+        saveUninitialized : true,
+        cookie : {maxAge : 15*60*60*60}
     }));
     
     if(process.env.NODE_ENV === 'development'){
