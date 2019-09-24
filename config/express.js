@@ -1,25 +1,24 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var logger = require('morgan');
-var compression = require('compression');
-var flash = require('connect-flash');
-var sass = require('node-sass-middleware');
-var passport = require('passport');
-var multer = require('multer');
-var path = require('path');
-var crypto = require('crypto');
-var mkdirp = require('mkdirp');
+"use strict";
 
-var config = require('./config');
+const express = require('express');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const logger = require('morgan');
+const compression = require('compression');
+const flash = require('connect-flash');
+const sass = require('node-sass-middleware');
+const passport = require('passport');
+const multer = require('multer');
+const path = require('path');
+const crypto = require('crypto');
+const { existsSync , mkdirSync } = require('fs');
+const config = require('./config');
 
 module.exports = function(){
-    var app = express();
 
-    //create folder
-    mkdirp(path.join(__dirname, '../public/img/user'), function (err) {
-        if (err) throw err;
-    });
+    const app = express();
+
+    existsSync(path.join(__dirname, '../public/img/user')) || mkdirSync(path.join(__dirname, '../public/img/user'));
 
     //set storage
     var storage = multer.diskStorage({
@@ -27,18 +26,12 @@ module.exports = function(){
           cb(null, path.join(__dirname, '../public/img/user'));
         },
         filename: function (req, file, cb) {
-          cb(null,   file.originalname.split('.')[0] +
-                     crypto.randomBytes(16).toString('hex') +
-                     '.'
-                     +file.originalname.split('.')[1] 
-            );
+          cb(null, file.originalname.split('.')[0] + crypto.randomBytes(16).toString('hex') + '.' + file.originalname.split('.')[1]);
         }
-    })
+    });
 
     //set confin multer
-    var upload = multer({
-        storage : storage
-    });
+    var upload = multer({storage : storage});
     
     app.use(flash());
 
@@ -50,18 +43,11 @@ module.exports = function(){
         cookie : {maxAge : 15*60*60*60}
     }));
     
-    if(process.env.NODE_ENV === 'development'){
-        app.use(logger('dev'));
-    }else{
-        app.use(compression());
-    }
+    if(process.env.NODE_ENV === 'development')  app.use(logger('dev'));
+    else app.use(compression());
 
     app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({
-        extended : true
-    }));
-    
-
+    app.use(bodyParser.urlencoded({extended : true}));
 
     app.use(passport.initialize());
     app.use(passport.session());
@@ -77,7 +63,7 @@ module.exports = function(){
         outputStyle : 'compressed',
         prefix : '/css',
         debug : config.debug
-    }))
+    }));
 
     app.use(express.static('./public'));
 

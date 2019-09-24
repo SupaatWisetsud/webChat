@@ -1,12 +1,13 @@
-var passport = require('passport');
-var facebookStrategy = require('passport-facebook').Strategy;
-var mongoose = require('mongoose');
+"use strict";
+const passport = require('passport');
+const facebookStrategy = require('passport-facebook').Strategy;
+const mongoose = require('mongoose');
 
-var config = require('../config');
+const config = require('../config');
 
 module.exports = function(){
 
-    var User = mongoose.model('User');
+    const User = mongoose.model('User');
 
     passport.use('facebook', new facebookStrategy({
         clientID : config.facebook.clientID,

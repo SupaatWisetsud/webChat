@@ -1,10 +1,12 @@
-var mongoose = require('mongoose');
+"use strict";
 
-var config = require('./config');
+const mongoose = require('mongoose');
+
+const config = require('./config');
 
 module.exports = function(){
 
-    var db = mongoose.connect(config.mongoUrl);
+    const db = mongoose.connect(config.mongoUrl);
 
     require('../app/models/User.model');
     require('../app/models/Room.model');

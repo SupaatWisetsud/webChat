@@ -1,7 +1,9 @@
-var mongoose = require('mongoose');
+"use strict";
 
-var Message = mongoose.model('Message');
-var Room = mongoose.model('Room');
+const mongoose = require('mongoose');
+
+const Message = mongoose.model('Message');
+const Room = mongoose.model('Room');
 
 module.exports = function(server){
 

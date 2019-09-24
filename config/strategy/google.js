@@ -1,12 +1,13 @@
-var passport = require('passport');
-var googleStrategy = require('passport-google-oauth20').Strategy;
-var mongoose = require('mongoose');
+"use strict";
+const passport = require('passport');
+const googleStrategy = require('passport-google-oauth20').Strategy;
+const mongoose = require('mongoose');
 
-var config = require('../config');
+const config = require('../config');
 
 module.exports = function(){
 
-    var User = mongoose.model('User');
+    const User = mongoose.model('User');
 
     passport.use('google', new googleStrategy({
         clientID : config.google.clientID,

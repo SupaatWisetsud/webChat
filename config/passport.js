@@ -1,10 +1,11 @@
-var passport = require('passport');
-var mongoose = require('mongoose');
+"use strict";
+const passport = require('passport');
+const mongoose = require('mongoose');
 
 
 module.exports = ()=>{
     
-    var User = mongoose.model('User');
+    const User = mongoose.model('User');
 
     passport.serializeUser(function(user, done){
         done(null, user._id);
