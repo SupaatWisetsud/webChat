@@ -10,9 +10,9 @@ var passport = passport();
 
 var http = require('http').Server(app);
 
-var server  = http.listen(5512, function(){
+var server  = http.listen(80, function(){
     console.log(`Mode : ${process.env.NODE_ENV} `);
-    console.log("Server running... || http://localhost:5512 ");
+    console.log("Server running... || http://localhost ");
 });
 
 var io = require('./config/socket')(server);
