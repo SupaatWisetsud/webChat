@@ -1,6 +1,7 @@
 "use strict";
 
-process.env.NODE_ENV = process.env.NODE_ENV || 'production';
+var dotenv = require('dotenv');
+dotenv.config();
 
 var mongoose = require('./config/mongoose');
 var express = require('./config/express');

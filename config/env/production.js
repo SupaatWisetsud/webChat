@@ -1,6 +1,5 @@
 module.exports = {
     debug : false,
-    sessionSecret : "product_secret",
     mongoUrl : 'mongodb://localhost:27017/webchat',
     facebook : {
         clientID : '869913373394455',
