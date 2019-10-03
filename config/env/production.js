@@ -1,6 +1,5 @@
 module.exports = {
     debug : false,
-    mongoUrl : 'mongodb://localhost:27017/webchat',
     facebook : {
         clientID : '869913373394455',
         clientSecret : '9a6fd6403351d1eb49c69a4a1190cbae',

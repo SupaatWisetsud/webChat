@@ -66,7 +66,6 @@ userSchema.statics.findUniq = function(req, userData, suffix, done, callback){
 
 userSchema.pre('save',function(next){
     if(this.password){
-        console.log('Hello');
         this.salt = new Buffer(crypto.randomBytes(16).toString('hex'), 'utf-8');
         this.password = this.hashPassword(this.password, this.salt);
     }
