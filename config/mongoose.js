@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 module.exports = function(){
 
-    const db = mongoose.connect("mongodb://localhost:27017/webchat");
+    const db = mongoose.connect("mongodb://root@bananahomebrew.ddns.net:27017/webchat");
 
     require('../app/models/User.model');
     require('../app/models/Room.model');
